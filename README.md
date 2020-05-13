@@ -3,7 +3,7 @@
 </p>
 
 # HospitalizeFlowException CorDapp
-This CorDapp contains information and examples on how to utilize HospitalizeFlowException.
+This CorDapp contains information and examples on how to utilize HospitalizeFlowException. The purpose of this repository is to give developers a quick background on HospitalizeFlowException and provide a way to easily test out the new feature.
 A video explaining the flows found in this repository can be found here: https://www.youtube.com/watch?v=RDQ4Pdb0RLs&feature=youtu.be.
 
 # Using this CorDapp
@@ -19,7 +19,7 @@ To deploy this CorDapp you must first run `./gradlew deployNodes` and then `./wo
 # What is the flow hospital?
 The flow hospital is a node service that manages flows that have encountered certain errors.
 It will work to determine whether errored flows should be retried or if their errors should propagate.
-In many cases, these flows are recoverable in certain scenarios.
+In many cases, these flows are recoverable and can be retried.
 Ex: If a node is missing a required CorDapp JAR, the flow will be send to the hospital.
 If one installed the necessary CorDapp JAR and restarted the node, that node would be able pick up the flow were it left off.
 Previously, when flows were sent to the flow hospital was managed entirely by the node itself.
