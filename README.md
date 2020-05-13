@@ -3,7 +3,7 @@
 </p>
 
 # HospitalizeFlowException CorDapp
-This CorDapp contains information and examples on how to utilize HospitalizeFlowException. The purpose of this repository is to give developers a quick background on HospitalizeFlowException and provide a way to easily test out the new feature.
+This CorDapp contains information and examples on how to utilize HospitalizeFlowException. The purpose of this repository is to give developers a quick background on HospitalizeFlowException and provide a way to easily test out this new feature.
 A video explaining the flows found in this repository can be found here: https://www.youtube.com/watch?v=RDQ4Pdb0RLs&feature=youtu.be.
 
 # Using this CorDapp
@@ -20,7 +20,7 @@ To deploy this CorDapp you must first run `./gradlew deployNodes` and then `./wo
 The flow hospital is a node service that manages flows that have encountered certain errors.
 It will work to determine whether errored flows should be retried or if their errors should propagate.
 In many cases, these flows are recoverable and can be retried.
-Ex: If a node is missing a required CorDapp JAR, the flow will be send to the hospital.
+Ex: If a node is missing a required CorDapp JAR, the flow will be sent to the hospital.
 If one installed the necessary CorDapp JAR and restarted the node, that node would be able pick up the flow were it left off.
 Previously, when flows were sent to the flow hospital was managed entirely by the node itself.
 Now in Corda 4.4, developers can choose to send their own flows to the hospital with HospitalizeFlowException.
@@ -32,7 +32,7 @@ This means that while the flow cannot complete successfully now, the flow could 
 
 # When to use HospitalizeFlowException?
 A HospitalizeFlowException should only be thrown when an error is encountered that is deemed "recoverable".
-The most relevant time to throw a HospitalizeFlowException is when trying to access an external service which may be currently unavailable. In the flow hospital it will wait until node restart at which point the flow will be retried from its last checkpoint.
+The most relevant time to throw a HospitalizeFlowException is when trying to access an external service which may be currently unavailable. If a HospitalizeFlowException is thrown, that flow will wait until node restart at which point the flow will be retried from its last checkpoint. At this point, that external service may be available and the flow will be able to finish properly.
 
 Developers should put thought into whether HospitalizeFlowException makes sense in the context of their CorDapp.
 If an external service returns a result that indicates we do not want to complete the flow, then a simple FlowException should be thrown instead to permanently terminate the flow.
