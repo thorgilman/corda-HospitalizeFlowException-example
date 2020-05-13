@@ -4,17 +4,17 @@
 
 # HospitalizeFlowException CorDapp
 This CorDapp contains information and examples on how to utilize HospitalizeFlowException.
-A video explaining the flows seen in this repository can be found here: https://www.youtube.com/watch?v=RDQ4Pdb0RLs&feature=youtu.be.
+A video explaining the flows found in this repository can be found here: https://www.youtube.com/watch?v=RDQ4Pdb0RLs&feature=youtu.be.
 
 # Using this CorDapp
 This CorDapp contains workflows in both java & kotlin that utilize HospitalizeFlowException.
-1) FlowThatGetsHospitalized
+1) *FlowThatGetsHospitalized*:
     This flow will always throw a HospitalizeFlowException, sending this flow to the flow hospital.
-2) FlowThatPerformsSuspendableOperation
-    This flow works in tandum with the new Corda await() feature. It will throw an exception if the external resource (the Bitcoin README) is unavailable.
+2) *FlowThatPerformsSuspendableOperation*:
+    This flow works in tandem with the new Corda await() feature. It will throw an exception if the external resource (the Bitcoin README) is unavailable.
     If you'd like to force it to throw a flow exception you can test this by disconnecting your machine from the internet.
 
-To deploy this CorDapp you can first run `./gradlew deployNodes` and then `./workflows-java/build/nodes/runnodes` or `./workflows-kotlin/build/nodes/runnodes`
+To deploy this CorDapp you must first run `./gradlew deployNodes` and then `./workflows-java/build/nodes/runnodes` or `./workflows-kotlin/build/nodes/runnodes`
 
 # What is the flow hospital?
 The flow hospital is a node service that manages flows that have encountered certain errors.
@@ -32,14 +32,11 @@ This means that while the flow cannot complete successfully now, the flow could 
 
 # When to use HospitalizeFlowException?
 A HospitalizeFlowException should only be thrown when an error is encountered that is deemed "recoverable".
-The most relevant time to throw a HospitalizeFlowException is when trying to access an external service which may be down.
-If that service is unavailable, a HospitalizeFlowException can be thrown and the flow will be sent to the flow hospital.
-In the flow hospital it will wait until node restart at which point the flow will be retried from its last checkpoint.
+The most relevant time to throw a HospitalizeFlowException is when trying to access an external service which may be currently unavailable. In the flow hospital it will wait until node restart at which point the flow will be retried from its last checkpoint.
 
 Developers should put thought into whether HospitalizeFlowException makes sense in the context of their CorDapp.
 If an external service returns a result that indicates we do not want to complete the flow, then a simple FlowException should be thrown instead to permanently terminate the flow.
-However, if that external service itself is currently unavailable, then it may be the case that we want to throw a HospitalizeFlowException instead to ensure this flow will be able to finish at some point in the future.
+However, if that external service itself is currently unavailable, then it may be the case that we want to throw a HospitalizeFlowException instead to ensure that we will be able to complete this flow at some point in the future.
 
-# What to look out for when using HospitalizeFlowException
-It's important to note that in order to retry a flow that has been hospitalized one must manually restart a Corda node.
-If the node is not restarted, the flow will remain incomplete within the flow hospital. A developer may want to consider whether it is worthwhile to throw a HospitalizeFlowException as it's possible that it makes more sense to simply throw a FlowException and manually rerun the flow. This should be carefully considered and will depend on the overall use case and network.
+It's important to emphasize that in order to retry a flow that has been hospitalized due to a HospitalizeFlowException being thrown, one must manually restart a Corda node.
+If the node is not restarted, the flow will remain incomplete within the flow hospital. 
