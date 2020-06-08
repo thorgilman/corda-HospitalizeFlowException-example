@@ -16,6 +16,8 @@ This CorDapp contains workflows in both java & kotlin that utilize HospitalizeFl
 
 To deploy this CorDapp you must first run `./gradlew deployNodes` and then `./workflows-java/build/nodes/runnodes` or `./workflows-kotlin/build/nodes/runnodes`
 
+You can also use this CorDapp by utilizing the DriverDSL tests within the `integrationTest` module in either `workflows-java` or `workflows-kotlin`. To force a HospitalizeFlowException you can first disconnect your machine from the internet before running the test.
+
 # What is the flow hospital?
 The flow hospital is a node service that manages flows that have encountered certain errors.
 It will work to determine whether errored flows should be retried or if their errors should propagate.
